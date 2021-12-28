@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct RootSearchResult: Codable {
+struct RootSearchResponse: Codable {
     var totalCount: Int
-    var items: [Repository]
+    var items: [RepositoryResponse]
 
     
     enum CodingKeys: String, CodingKey {

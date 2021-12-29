@@ -9,6 +9,7 @@ import Foundation
 
 protocol PresenterDelegate: class {
     func updateUI()
+    func reloadAndScroll()
 }
 
 class Presenter: PresenterProtocol {
@@ -37,7 +38,12 @@ class Presenter: PresenterProtocol {
             load(nextPage)
         }
     }
-    
+    func restore(repositories: [RepositoryResponse], currentPage: Int, totalCount: Int) {
+        self.repositories = repositories
+        self.currentPage = currentPage
+        self.totalCount = totalCount
+        delegate?.reloadAndScroll()
+    }
     func load(_ nextPage: Int) {
         if isLoading == true {
             return

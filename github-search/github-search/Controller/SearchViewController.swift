@@ -13,6 +13,17 @@ protocol PresenterProtocol: class {
     var repositories: [RepositoryResponse] { get set }
     func checkForLoadingNewPages(_ index: Int)
     var hasMorePages: Bool { get }
+    var totalCount: Int { get }
+    var currentPage: Int { get }
+    func restore(repositories: [RepositoryResponse], currentPage: Int, totalCount: Int)
+    
+}
+
+struct RestorationState: Codable {
+    let response: [RepositoryResponse]
+    let currentPage: Int
+    let contentOffset: CGFloat
+    let totalCount: Int
 }
 
 class SearchViewController: UIViewController {
@@ -23,7 +34,13 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var presenter: PresenterProtocol!
-    
+    var restorationState: RestorationState?
+    private var contentOffset: CGFloat = 0.0
+    private var generatedRestorationData: Data? {
+        guard presenter.repositories.count > 0,
+              let data = try? JSONEncoder().encode(RestorationState(response: presenter.repositories, currentPage: presenter.currentPage, contentOffset: contentOffset, totalCount: presenter.totalCount)) else { return nil }
+        return data
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,6 +49,21 @@ class SearchViewController: UIViewController {
         let presenter = Presenter()
         presenter.delegate = self
         self.presenter = presenter
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        userActivity = view.window?.windowScene?.userActivity
+        if let restorationState = restorationState {
+            presenter.restore(repositories: restorationState.response, currentPage: restorationState.currentPage, totalCount: restorationState.totalCount)
+            contentOffset = restorationState.contentOffset
+            self.restorationState = nil
+        }
+    }
+    override func updateUserActivityState(_ activity: NSUserActivity) {
+        super.updateUserActivityState(activity)
+        if let generatedRestorationData = generatedRestorationData {
+            activity.addUserInfoEntries(from: [Constants.restorationKey: generatedRestorationData])
+        }
     }
 }
 
@@ -103,6 +135,14 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         presenter.repositories[indexPath.row].state = .opened
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        contentOffset = scrollView.contentOffset.y
+    }
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            contentOffset = scrollView.contentOffset.y
+        }
+    }
 }
 
 extension SearchViewController: PresenterDelegate {
@@ -113,5 +153,11 @@ extension SearchViewController: PresenterDelegate {
             tableView.tableFooterView = nil
         }
         tableView.reloadData()
+    }
+    func reloadAndScroll() {
+        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.setContentOffset(CGPoint(x: 0.0, y: self.contentOffset), animated: true)
+        }
     }
 }

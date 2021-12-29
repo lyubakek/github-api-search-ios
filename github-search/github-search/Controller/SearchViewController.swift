@@ -11,16 +11,19 @@ import Foundation
 protocol PresenterProtocol: class {
     func searchQueryDidChange(text: String)
     var repositories: [RepositoryResponse] { get }
+    func checkForLoadingNewPages(_ index: Int)
+    var hasMorePages: Bool { get }
 }
 
 class SearchViewController: UIViewController{
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
-    var currentSearchTask: URLSessionTask?
+    @IBOutlet var loadingView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var presenter: PresenterProtocol!
-    var hasSearched = false
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,6 +32,7 @@ class SearchViewController: UIViewController{
         let presenter = Presenter()
         presenter.delegate = self
         self.presenter = presenter
+        
     }
 }
 
@@ -37,15 +41,11 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if !searchBar.text!.isEmpty {
             searchBar.resignFirstResponder()
-            hasSearched = true
             presenter.searchQueryDidChange(text: searchBar.text!)
             tableView.reloadData()
         }
     }
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        currentSearchTask?.cancel()
-    }
+    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
         print(#function)
@@ -64,9 +64,8 @@ extension SearchViewController: UISearchBarDelegate {
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !hasSearched {
-            return 0
-        } else if presenter.repositories.count == 0 {
+        
+        if presenter.repositories.count == 0 {
             return 1
         } else {
             return presenter.repositories.count
@@ -77,11 +76,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         
         let cellIdentifier = "SearchResultCell"
         
-        var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
-        if cell == nil {
-            cell = UITableViewCell(
-                style: .default, reuseIdentifier: cellIdentifier)
-        }
+        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)!
         
         if presenter.repositories.count == 0 {
             cell.textLabel!.text = "(Nothing found)"
@@ -91,19 +86,24 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel?.text = searchResult.name
             cell.detailTextLabel?.text = searchResult.url
         }
+        presenter.checkForLoadingNewPages(indexPath.row)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         guard let url = URL(string: presenter.repositories[indexPath.row].url) else { return }
         UIApplication.shared.open(url)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
-    
 }
 
 extension SearchViewController: PresenterDelegate {
     func updateUI() {
+        if presenter.hasMorePages {
+            tableView.tableFooterView = loadingView
+        } else {
+            tableView.tableFooterView = nil
+        }
         tableView.reloadData()
     }
 }

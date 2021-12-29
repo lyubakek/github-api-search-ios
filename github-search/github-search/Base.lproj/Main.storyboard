@@ -91,11 +91,28 @@
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="kr8-Ki-xCX"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="6k7-2w-3RK" id="2Wv-FE-mo2"/>
+                        <outlet property="loadingView" destination="9Qh-si-r7h" id="m0u-dT-m6G"/>
                         <outlet property="searchBar" destination="veV-bB-2Tp" id="OuM-5a-OZO"/>
                         <outlet property="tableView" destination="MYS-ao-k6Y" id="8kw-bM-81N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="9Qh-si-r7h" userLabel="Loading View">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="6k7-2w-3RK">
+                            <rect key="frame" x="110" y="76" width="20" height="20"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="M8q-aZ-6OF"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="6k7-2w-3RK" firstAttribute="centerY" secondItem="M8q-aZ-6OF" secondAttribute="centerY" id="Hhf-Ks-KfC"/>
+                        <constraint firstItem="6k7-2w-3RK" firstAttribute="centerX" secondItem="M8q-aZ-6OF" secondAttribute="centerX" id="S4K-UI-PXA"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="18.840579710144929" y="78.348214285714278"/>
         </scene>

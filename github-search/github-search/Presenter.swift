@@ -56,7 +56,7 @@ class Presenter: PresenterProtocol {
         return url!
     }
     
-    func parse(searshText: String, page: Int) { //, completion:  @escaping (Result<String, Error>) -> Void
+    func parse(searshText: String, page: Int) { // completion:  @escaping (Result<String, Error>) -> Void
         let url = buildGitHubURL(searchText: searshText, page: page)
         var urlRequest = URLRequest(url: url)
         urlRequest.allHTTPHeaderFields = ["accept":"application/vnd.github.v3+json"]

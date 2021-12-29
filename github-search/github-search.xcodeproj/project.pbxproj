@@ -92,13 +92,13 @@
 				9DD31D45277903EA0096F4AF /* Controller */,
 				9DD31D44277903E40096F4AF /* View */,
 				9DD31D42277903C90096F4AF /* Model */,
+				9DEE83122778887F005730E7 /* Main.storyboard */,
+				9DD9715A277B720900032CDF /* Presenter.swift */,
 				9DEE830C2778887F005730E7 /* AppDelegate.swift */,
 				9DEE830E2778887F005730E7 /* SceneDelegate.swift */,
-				9DEE83122778887F005730E7 /* Main.storyboard */,
 				9DEE83152778888A005730E7 /* Assets.xcassets */,
 				9DEE83172778888A005730E7 /* LaunchScreen.storyboard */,
 				9DEE831A2778888A005730E7 /* Info.plist */,
-				9DD9715A277B720900032CDF /* Presenter.swift */,
 			);
 			path = "github-search";
 			sourceTree = "<group>";
@@ -113,6 +113,7 @@
 				9DEE83052778887F005730E7 /* Sources */,
 				9DEE83062778887F005730E7 /* Frameworks */,
 				9DEE83072778887F005730E7 /* Resources */,
+				9DD97165277D193500032CDF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -167,6 +168,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9DD97165277D193500032CDF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9DEE83052778887F005730E7 /* Sources */ = {

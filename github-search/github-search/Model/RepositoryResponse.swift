@@ -10,14 +10,12 @@ import Foundation
 struct RepositoryResponse: Codable {
     var url: String
     var stars: Int
-    var id: Int
     var name: String
     var state: ViewState = .new
     
     enum CodingKeys: String, CodingKey {
         case url = "html_url"
         case stars = "stargazers_count"
-        case id = "id"
         case name = "name"
     }
 }

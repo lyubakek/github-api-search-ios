@@ -14,7 +14,7 @@ protocol PresenterDelegate: class {
 class Presenter: PresenterProtocol {
     
     weak var delegate: PresenterDelegate?
-    private(set) var repositories = [RepositoryResponse]()
+    var repositories = [RepositoryResponse]()
     
     var isLoading = false
     var totalCount = 0

@@ -10,7 +10,7 @@ import Foundation
 
 protocol PresenterProtocol: class {
     func searchQueryDidChange(text: String)
-    var repositories: [RepositoryResponse] { get }
+    var repositories: [RepositoryResponse] { get set }
     func checkForLoadingNewPages(_ index: Int)
     var hasMorePages: Bool { get }
 }
@@ -32,7 +32,6 @@ class SearchViewController: UIViewController{
         let presenter = Presenter()
         presenter.delegate = self
         self.presenter = presenter
-        
     }
 }
 
@@ -79,12 +78,17 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)!
         
         if presenter.repositories.count == 0 {
-            cell.textLabel!.text = "(Nothing found)"
-            cell.detailTextLabel!.text = ""
+            cell.textLabel?.text = "(Nothing found)"
+            cell.detailTextLabel?.text = ""
         } else {
             let searchResult = presenter.repositories[indexPath.row]
             cell.textLabel?.text = searchResult.name
             cell.detailTextLabel?.text = searchResult.url
+            if presenter.repositories[indexPath.row].state == .opened {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
         }
         presenter.checkForLoadingNewPages(indexPath.row)
         return cell
@@ -93,6 +97,10 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let url = URL(string: presenter.repositories[indexPath.row].url) else { return }
         UIApplication.shared.open(url)
+        
+        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        
+        presenter.repositories[indexPath.row].state = .opened
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

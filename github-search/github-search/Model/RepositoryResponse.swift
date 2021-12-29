@@ -12,6 +12,7 @@ struct RepositoryResponse: Codable {
     var stars: Int
     var id: Int
     var name: String
+    var state: ViewState = .new
     
     enum CodingKeys: String, CodingKey {
         case url = "html_url"

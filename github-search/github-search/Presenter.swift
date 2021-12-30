@@ -9,7 +9,7 @@ import Foundation
 
 protocol PresenterDelegate: class {
     func updateUI()
-    func reloadAndScroll()
+    func restoreView()
 }
 
 class Presenter: PresenterProtocol {
@@ -18,7 +18,7 @@ class Presenter: PresenterProtocol {
     var repositories = [RepositoryResponse]()
     
     private var isLoading = false
-    private var searchBarText: String = ""
+    private(set) var searchText: String = ""
     private var task: URLSessionDataTask?
     private(set) var totalCount = 0
     private(set) var currentPage = 1
@@ -30,7 +30,7 @@ class Presenter: PresenterProtocol {
     }
     
     func searchQueryDidChange(text: String) {
-        searchBarText = text
+        searchText = text
         clean()
         delegate?.updateUI()
         loadRepositories(searshText: text, page: currentPage)
@@ -41,18 +41,19 @@ class Presenter: PresenterProtocol {
             load(nextPage)
         }
     }
-    func restore(repositories: [RepositoryResponse], currentPage: Int, totalCount: Int) {
+    func restore(text: String, repositories: [RepositoryResponse], currentPage: Int, totalCount: Int) {
         self.repositories = repositories
         self.currentPage = currentPage
         self.totalCount = totalCount
-        delegate?.reloadAndScroll()
+        self.searchText = text
+        delegate?.restoreView()
     }
     private func load(_ nextPage: Int) {
         if isLoading == true {
             return
         }
         isLoading = true
-        let query = searchBarText
+        let query = searchText
         currentPage = nextPage
         loadRepositories(searshText: query, page: currentPage)
     }

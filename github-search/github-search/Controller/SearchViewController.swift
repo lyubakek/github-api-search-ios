@@ -9,17 +9,19 @@ import UIKit
 import Foundation
 
 protocol PresenterProtocol: class {
+    var searchText: String { get }
     var repositories: [RepositoryResponse] { get set }
     var hasMorePages: Bool { get }
     var totalCount: Int { get }
     var currentPage: Int { get }
     func searchQueryDidChange(text: String)
     func checkForLoadingNewPages(_ index: Int)
-    func restore(repositories: [RepositoryResponse], currentPage: Int, totalCount: Int)
+    func restore(text: String, repositories: [RepositoryResponse], currentPage: Int, totalCount: Int)
     
 }
 
 struct RestorationState: Codable {
+    let text: String
     let response: [RepositoryResponse]
     let currentPage: Int
     let contentOffset: CGFloat
@@ -38,7 +40,7 @@ class SearchViewController: UIViewController {
     private var contentOffset: CGFloat = 0.0
     private var generatedRestorationData: Data? {
         guard presenter.repositories.count > 0,
-              let data = try? JSONEncoder().encode(RestorationState(response: presenter.repositories, currentPage: presenter.currentPage, contentOffset: contentOffset, totalCount: presenter.totalCount)) else { return nil }
+              let data = try? JSONEncoder().encode(RestorationState(text: presenter.searchText,response: presenter.repositories, currentPage: presenter.currentPage, contentOffset: contentOffset, totalCount: presenter.totalCount)) else { return nil }
         return data
     }
     override func viewDidLoad() {
@@ -54,7 +56,7 @@ class SearchViewController: UIViewController {
         super.viewDidAppear(animated)
         userActivity = view.window?.windowScene?.userActivity
         if let restorationState = restorationState {
-            presenter.restore(repositories: restorationState.response, currentPage: restorationState.currentPage, totalCount: restorationState.totalCount)
+            presenter.restore(text: restorationState.text, repositories: restorationState.response, currentPage: restorationState.currentPage, totalCount: restorationState.totalCount)
             contentOffset = restorationState.contentOffset
             self.restorationState = nil
         }
@@ -154,8 +156,9 @@ extension SearchViewController: PresenterDelegate {
         }
         tableView.reloadData()
     }
-    func reloadAndScroll() {
+    func restoreView() {
         tableView.reloadData()
+        searchBar.text = presenter.searchText
         DispatchQueue.main.async {
             self.tableView.setContentOffset(CGPoint(x: 0.0, y: self.contentOffset), animated: true)
         }

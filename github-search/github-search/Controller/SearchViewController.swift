@@ -9,12 +9,12 @@ import UIKit
 import Foundation
 
 protocol PresenterProtocol: class {
-    func searchQueryDidChange(text: String)
     var repositories: [RepositoryResponse] { get set }
-    func checkForLoadingNewPages(_ index: Int)
     var hasMorePages: Bool { get }
     var totalCount: Int { get }
     var currentPage: Int { get }
+    func searchQueryDidChange(text: String)
+    func checkForLoadingNewPages(_ index: Int)
     func restore(repositories: [RepositoryResponse], currentPage: Int, totalCount: Int)
     
 }

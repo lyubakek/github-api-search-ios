@@ -118,7 +118,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
             let searchResult = presenter.repositories[indexPath.row]
             cell.textLabel?.text = searchResult.name
             cell.detailTextLabel?.text = searchResult.url
-            if presenter.repositories[indexPath.row].state == .opened {
+            if presenter.repositories[indexPath.row].state {
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
@@ -134,7 +134,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         
-        presenter.repositories[indexPath.row].state = .opened
+        presenter.repositories[indexPath.row].state = true
         tableView.deselectRow(at: indexPath, animated: true)
     }
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

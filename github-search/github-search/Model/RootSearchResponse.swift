@@ -8,8 +8,8 @@
 import Foundation
 
 struct RootSearchResponse: Codable {
-    var totalCount: Int
-    var items: [RepositoryResponse]
+    let totalCount: Int
+    let items: [RepositoryResponse]
     
     enum CodingKeys: String, CodingKey {
         case totalCount = "total_count"

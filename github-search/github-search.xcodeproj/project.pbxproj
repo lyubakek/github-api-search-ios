@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9D8D6E2527792E3400A03616 /* RootSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8D6E2427792E3400A03616 /* RootSearchResponse.swift */; };
-		9DD31D48277916D30096F4AF /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD31D47277916D30096F4AF /* ViewState.swift */; };
 		9DD97157277A8B2400032CDF /* RepositoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD97156277A8B2400032CDF /* RepositoryResponse.swift */; };
 		9DD9715B277B720900032CDF /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD9715A277B720900032CDF /* Presenter.swift */; };
 		9DEE830D2778887F005730E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEE830C2778887F005730E7 /* AppDelegate.swift */; };
@@ -21,7 +20,6 @@
 
 /* Begin PBXFileReference section */
 		9D8D6E2427792E3400A03616 /* RootSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootSearchResponse.swift; sourceTree = "<group>"; };
-		9DD31D47277916D30096F4AF /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
 		9DD97156277A8B2400032CDF /* RepositoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryResponse.swift; sourceTree = "<group>"; };
 		9DD9715A277B720900032CDF /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		9DEE83092778887F005730E7 /* github-search.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "github-search.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,7 +54,6 @@
 		9DD31D42277903C90096F4AF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9DD31D47277916D30096F4AF /* ViewState.swift */,
 				9D8D6E2427792E3400A03616 /* RootSearchResponse.swift */,
 				9DD97156277A8B2400032CDF /* RepositoryResponse.swift */,
 			);
@@ -198,7 +195,6 @@
 				9DD9715B277B720900032CDF /* Presenter.swift in Sources */,
 				9DEE83112778887F005730E7 /* SearchViewController.swift in Sources */,
 				9DEE830D2778887F005730E7 /* AppDelegate.swift in Sources */,
-				9DD31D48277916D30096F4AF /* ViewState.swift in Sources */,
 				9DEE830F2778887F005730E7 /* SceneDelegate.swift in Sources */,
 				9D8D6E2527792E3400A03616 /* RootSearchResponse.swift in Sources */,
 			);

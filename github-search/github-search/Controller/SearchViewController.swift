@@ -67,6 +67,13 @@ class SearchViewController: UIViewController {
             activity.addUserInfoEntries(from: [Constants.restorationKey: generatedRestorationData])
         }
     }
+    private func updateFooterView() {
+        if presenter.hasMorePages {
+            tableView.tableFooterView = loadingView
+        } else {
+            tableView.tableFooterView = nil
+        }
+    }
 }
 
 extension SearchViewController: UISearchBarDelegate {
@@ -149,16 +156,13 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension SearchViewController: PresenterDelegate {
     func updateUI() {
-        if presenter.hasMorePages {
-            tableView.tableFooterView = loadingView
-        } else {
-            tableView.tableFooterView = nil
-        }
+        updateFooterView()
         tableView.reloadData()
     }
     func restoreView() {
         tableView.reloadData()
         searchBar.text = presenter.searchText
+        updateFooterView()
         DispatchQueue.main.async {
             self.tableView.setContentOffset(CGPoint(x: 0.0, y: self.contentOffset), animated: true)
         }

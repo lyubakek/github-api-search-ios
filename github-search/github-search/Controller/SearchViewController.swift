@@ -70,9 +70,9 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if !searchBar.text!.isEmpty {
+        if let text = searchBar.text {
             searchBar.resignFirstResponder()
-            presenter.searchQueryDidChange(text: searchBar.text!)
+            presenter.searchQueryDidChange(text: text)
             tableView.reloadData()
         }
     }

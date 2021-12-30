@@ -12,13 +12,12 @@ struct Constants {
     static let restorationKey = "restorationKey"
 }
 
-
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard (scene as? UIWindowScene) != nil else { return }
         let userActivity = session.stateRestorationActivity ?? NSUserActivity(activityType: Constants.userActivityRestorationKey)
         scene.userActivity = userActivity
         if let restorationState = (userActivity.userInfo?[Constants.restorationKey] as? Data)
@@ -30,4 +29,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         scene.userActivity
     }
 }
-

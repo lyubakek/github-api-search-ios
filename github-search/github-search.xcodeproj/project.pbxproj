@@ -55,13 +55,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		9DD31D44277903E40096F4AF /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		9DD31D45277903EA0096F4AF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,7 +83,6 @@
 			isa = PBXGroup;
 			children = (
 				9DD31D45277903EA0096F4AF /* Controller */,
-				9DD31D44277903E40096F4AF /* View */,
 				9DD31D42277903C90096F4AF /* Model */,
 				9DEE83122778887F005730E7 /* Main.storyboard */,
 				9DD9715A277B720900032CDF /* Presenter.swift */,

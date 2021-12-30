@@ -17,8 +17,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" placeholder="Search reposytory..." translatesAutoresizingMaskIntoConstraints="NO" id="veV-bB-2Tp">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="jrl-xB-eS4"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="QvH-F6-IAO"/>
+                                </connections>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MYS-ao-k6Y">
-                                <rect key="frame" x="5" y="122.5" width="414" height="731.5"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" textLabel="pcP-oA-tdD" detailTextLabel="UMq-my-Jla" style="IBUITableViewCellStyleSubtitle" id="DiK-dS-Gs8">
@@ -51,26 +61,16 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="cME-x4-WW0"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" placeholder="Search reposytory..." translatesAutoresizingMaskIntoConstraints="NO" id="veV-bB-2Tp">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="jrl-xB-eS4"/>
-                                </constraints>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="QvH-F6-IAO"/>
-                                </connections>
-                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="veV-bB-2Tp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="3tC-WZ-3wk"/>
-                            <constraint firstItem="MYS-ao-k6Y" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="C75-CL-Ucr"/>
-                            <constraint firstItem="MYS-ao-k6Y" firstAttribute="top" secondItem="veV-bB-2Tp" secondAttribute="bottom" constant="34.5" id="Ike-SN-nad"/>
+                            <constraint firstItem="MYS-ao-k6Y" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="4bN-4Y-S0X"/>
+                            <constraint firstItem="MYS-ao-k6Y" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="6yW-kk-DIN"/>
+                            <constraint firstItem="MYS-ao-k6Y" firstAttribute="top" secondItem="veV-bB-2Tp" secondAttribute="bottom" id="7H4-ut-i6r"/>
                             <constraint firstItem="veV-bB-2Tp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ZIs-Ap-tKp"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="MYS-ao-k6Y" secondAttribute="trailing" constant="-25" id="j3U-cJ-EoR"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="MYS-ao-k6Y" secondAttribute="bottom" constant="8" id="l9W-Kb-VaN"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="MYS-ao-k6Y" secondAttribute="bottom" id="vPB-1x-oc4"/>
                             <constraint firstItem="veV-bB-2Tp" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="zcY-jg-jha"/>
                         </constraints>
                     </view>

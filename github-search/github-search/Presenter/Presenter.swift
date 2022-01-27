@@ -59,8 +59,14 @@ class Presenter: PresenterProtocol {
     }
     
     private func buildGitHubURL(searchText: String, page: Int) -> URL {
-        let urlString = "https://api.github.com/search/repositories?q=\(searchText)&sort=stars&order=desc&per_page=30&page=\(page)"
-        let url = URL(string: urlString)!
+        var components = URLComponents(string: "https://api.github.com/search/repositories")!
+        components.queryItems = [URLQueryItem(name: "q", value: searchText),
+                                 URLQueryItem(name: "sort", value: "stars"),
+                                 URLQueryItem(name: "order", value: "desc"),
+                                 URLQueryItem(name: "per_page", value: "30"),
+                                 URLQueryItem(name: "page", value: String(page))]
+        
+        let url = components.url!
         return url
     }
     
